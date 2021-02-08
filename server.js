@@ -12,6 +12,7 @@ var express = require('express'),
 	var app = express();
 
 	let http = require('http').Server(app);
+	var https = require('https');
 
 app.use(bodypareser.urlencoded({limit:'100mb',extended:true}));
 app.use(bodypareser.json({limit:'100mb'}));
@@ -55,6 +56,20 @@ dbBackup.GenerateBackup();
 var server = app.listen(parseInt(cryptconf.decrypt(env.port)),function(){
 	 console.log('server start', cryptconf.decrypt(env.port));
 })	
+
+const cert = fs.readFileSync('./sslforfree/certificate.crt');
+const ca = fs.readFileSync('./sslforfree/ca_bundle.crt');
+const key = fs.readFileSync('./sslforfree/private.key');
+
+
+let httpsOptions = {
+    cert: cert, // fs.readFileSync('./ssl/example.crt');
+    ca: ca, // fs.readFileSync('./ssl/example.ca-bundle');
+    key: key // fs.readFileSync('./ssl/example.key');
+ };
+
+
+var sec_server = https.createServer(httpsOptions, app).listen(8896);
 
  let io = require('socket.io')(server);
 	require('./lib/config/socket.Ctrl')(io);
