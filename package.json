@@ -35,7 +35,6 @@
     "node-url-shortener": "^1.0.1",
     "nodemailer": "^6.4.14",
     "phantomjs": "^2.1.7",
-    "phantomjs-prebuilt": "^2.1.16",
     "read-excel-file": "^4.0.7",
     "socket.io": "^2.3.0",
     "xlsx": "^0.16.8"
