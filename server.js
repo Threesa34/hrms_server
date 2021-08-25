@@ -57,10 +57,13 @@ var server = app.listen(parseInt(cryptconf.decrypt(env.port)),function(){
 	 console.log('server start', cryptconf.decrypt(env.port));
 })	
 
-const cert = fs.readFileSync('./sslforfree/certificate.crt');
+/* const cert = fs.readFileSync('./sslforfree/certificate.crt');
 const ca = fs.readFileSync('./sslforfree/ca_bundle.crt');
-const key = fs.readFileSync('./sslforfree/private.key');
+const key = fs.readFileSync('./sslforfree/private.key'); */
 
+const cert = fs.readFileSync(path.resolve('../../etc/letsencrypt/live/threesainfoway.net/cert.pem'));
+const ca = fs.readFileSync(path.resolve('../../etc/letsencrypt/live/threesainfoway.net/chain.pem'));
+const key = fs.readFileSync(path.resolve('../../etc/letsencrypt/live/threesainfoway.net/privkey.pem'));
 
 let httpsOptions = {
     cert: cert, // fs.readFileSync('./ssl/example.crt');
@@ -69,10 +72,11 @@ let httpsOptions = {
  };
 
 
-var sec_server = https.createServer(httpsOptions, app).listen(8896);
+ var sec_server = https.createServer(httpsOptions, app).listen(8896);
 
  let io = require('socket.io')(server);
 	require('./lib/config/socket.Ctrl')(io);
 
+	
 	server.timeout = 600000;
 
