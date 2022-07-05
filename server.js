@@ -10,15 +10,16 @@ var express = require('express'),
 	var routes = require('./lib/routes');
 	var dbBackup = require('./lib/config/dbBackup');
 	var app = express();
-
+	const cors = require('cors');
 	let http = require('http').Server(app);
 	var https = require('https');
 
 app.use(bodypareser.urlencoded({limit:'100mb',extended:true}));
 app.use(bodypareser.json({limit:'100mb'}));
 	
+app.use(cors());
 
-app.use(function(req, res, next) {
+/* app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Methods", "OPTIONS, POST, GET, PUT, DELETE");
 	res.header("Access-Control-Allow-Headers", "*");
@@ -28,7 +29,9 @@ app.use(function(req, res, next) {
 	} else {
 		next();
 	}
-  });
+  }); */
+
+  console.log(cryptconf.encrypt('321'))
 
 app.use(express.static(path.join(__dirname,'app')));
 
@@ -61,18 +64,29 @@ var server = app.listen(parseInt(cryptconf.decrypt(env.port)),function(){
 const ca = fs.readFileSync('./sslforfree/ca_bundle.crt');
 const key = fs.readFileSync('./sslforfree/private.key'); */
 
-const cert = fs.readFileSync(path.resolve('../../etc/letsencrypt/live/threesainfoway.net/cert.pem'));
+/* const cert = fs.readFileSync(path.resolve('../../etc/letsencrypt/live/threesainfoway.net/cert.pem'));
 const ca = fs.readFileSync(path.resolve('../../etc/letsencrypt/live/threesainfoway.net/chain.pem'));
 const key = fs.readFileSync(path.resolve('../../etc/letsencrypt/live/threesainfoway.net/privkey.pem'));
+ */
+
+
+const cert = fs.readFileSync(path.resolve('../Threesa_website/starssl/STAR.threesainfoway.net.crt'));
+  const ca = fs.readFileSync(path.resolve('../Threesa_website/starssl/STAR.threesainfoway.net.ca-bundle'));
+  const key = fs.readFileSync(path.resolve('../Threesa_website/starssl/private.key'));
 
 let httpsOptions = {
     cert: cert, // fs.readFileSync('./ssl/example.crt');
     ca: ca, // fs.readFileSync('./ssl/example.ca-bundle');
     key: key // fs.readFileSync('./ssl/example.key');
- };
+ }; 
 
 
- var sec_server = https.createServer(httpsOptions, app).listen(8896);
+
+
+ var sec_server = https.createServer(httpsOptions, app).listen(8896, function(){
+	
+	console.log('server start on port: ' + sec_server.address().port);
+ });
 
  let io = require('socket.io')(server);
 	require('./lib/config/socket.Ctrl')(io);
