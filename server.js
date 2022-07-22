@@ -69,7 +69,7 @@ const ca = fs.readFileSync(path.resolve('../../etc/letsencrypt/live/threesainfow
 const key = fs.readFileSync(path.resolve('../../etc/letsencrypt/live/threesainfoway.net/privkey.pem'));
  */
 
-
+/* 
 const cert = fs.readFileSync(path.resolve('../Threesa_website/starssl/STAR.threesainfoway.net.crt'));
   const ca = fs.readFileSync(path.resolve('../Threesa_website/starssl/STAR.threesainfoway.net.ca-bundle'));
   const key = fs.readFileSync(path.resolve('../Threesa_website/starssl/private.key'));
@@ -79,8 +79,9 @@ let httpsOptions = {
     ca: ca, // fs.readFileSync('./ssl/example.ca-bundle');
     key: key // fs.readFileSync('./ssl/example.key');
  }; 
+ */
 
-
+ let httpsOptions = {};
 
 
  var sec_server = https.createServer(httpsOptions, app).listen(8896, function(){
