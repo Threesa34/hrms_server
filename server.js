@@ -20,7 +20,7 @@ app.use(bodypareser.json({limit:'100mb'}));
 app.use(cors());
 
 /* app.use(function(req, res, next) {
-	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Origin", "https://103.252.7.5:4200/");
 	res.header("Access-Control-Allow-Methods", "OPTIONS, POST, GET, PUT, DELETE");
 	res.header("Access-Control-Allow-Headers", "*");
 	res.header('Access-Control-Allow-Credentials', true);
