@@ -41,7 +41,7 @@ routes.configure(app);
 	dbcreation.CreateTables();
 
 dbBackup.GenerateBackup();
-/* var key_fields = Object.keys(env)
+ var key_fields = Object.keys(env)
  if(key_fields.length > 0)
  {
  key_fields.map(function(val){
@@ -54,7 +54,7 @@ dbBackup.GenerateBackup();
 	 }
 	
 }); 
-} */
+} 
 
 var server = app.listen(parseInt(cryptconf.decrypt(env.port)),function(){
 	 console.log('server start', cryptconf.decrypt(env.port));
