@@ -46,7 +46,7 @@ dbBackup.GenerateBackup();
  {
  key_fields.map(function(val){
 	 try{
-		console.log(val+" = "+cryptconf.decrypt(env[String(val)]));
+		// console.log(val+" = "+cryptconf.decrypt(env[String(val)]));
 	 }
 	 catch(exp)
 	 {
