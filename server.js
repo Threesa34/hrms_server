@@ -31,7 +31,11 @@ app.use(cors());
 	}
   }); */
 
-  console.log(cryptconf.encrypt('321'))
+//   console.log(cryptconf.encrypt('321'))
+  console.log(cryptconf.encrypt('3brluxzsuzxgwxtig21'))
+  
+  console.log(cryptconf.decrypt(env.senderpass))
+
 
 app.use(express.static(path.join(__dirname,'app')));
 
