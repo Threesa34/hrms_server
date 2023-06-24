@@ -32,6 +32,13 @@ app.use(cors());
   }); */
 
 //   console.log(cryptconf.encrypt('321'))
+<<<<<<< HEAD
+=======
+  console.log(cryptconf.encrypt('3brluxzsuzxgwxtig21'))
+  
+  console.log(cryptconf.decrypt(env.senderpass))
+
+>>>>>>> e1eee262009a15657cc8a1b0335486333986ff80
 
 app.use(express.static(path.join(__dirname,'app')));
 

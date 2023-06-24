@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Promotions</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl" style="height: 75vh;">
+
+   
+<div class="container-fluid">
+    <embed type="text/html" src="{{template.filepath}}" style="max-height:100vh; height: 100vh;width:100vw">
+</div>
+<div class="container-fluid" ng-if="template.enquiry_form == 1">
+  <div class="col-12 text-center mt-2 mb-2">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">Enquiry</button>
+  </div>
+</div>
+
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Enquiry</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+            <form name="enquiryForm" class="was-validated">
+                <div class="mb-3 mt-3">
+                  <label for="name" class="form-label">Name:</label>
+                  <input type="text" class="form-control" ng-model="enquiry.name" id="name" placeholder="Enter Name" name="name" required>
+                  <div class="invalid-feedback">Please fill out this field.</div>
+                </div>
+                <div class="mb-3 mt-3">
+                  <label for="email" class="form-label">Email:</label>
+                  <input type="email" class="form-control" ng-model="enquiry.email" id="email" placeholder="Enter email" name="email">
+                </div>
+                <div class="mb-3 mt-3">
+                  <label for="contact1" class="form-label">Mobile:</label>
+                  <input type="tel" class="form-control" ng-model="enquiry.contact1" id="contact1" placeholder="9999999999" name="contact1" required>
+                  <div class="invalid-feedback">Please fill out this field.</div>
+                </div>
+                <div class="mb-3 mt-3">
+                  <label for="contact2" class="form-label">Alt. Mobile:</label>
+                  <input type="tel" class="form-control" ng-model="enquiry.contact2" id="contact2" placeholder="9999999999" name="contact2">
+                </div>
+                <div class="mb-3 mt-3">
+                  <label for="message" class="form-label">Message:</label>
+                  <textarea class="form-control" ng-model="enquiry.message" id="message" placeholder="Message" name="message"></textarea>
+                </div>
+              </form>
+              
+
+              <div class="col-12" ng-if="responseData && responseData.type == 'success'">
+                <div class="alert alert-success">
+                    <strong>Success!</strong> {{responseData.message}}
+                  </div>
+              </div>
+              <div class="col-12" ng-if="responseData && responseData.type == 'error'">
+                <div class="alert alert-danger">
+                    <strong>OOPs!</strong> {{responseData.message}}
+                  </div>
+              </div>
+        </div>
+
+        
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+           
+          <button type="submit" class="btn btn-primary" ng-disabled="enquiryForm.$invalid" ng-click="submitEnquiry()">Submit</button>&nbsp;
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+
+</body>
+
+
+<script>
+    var app = angular.module("myApp", ['ngSanitize']);
+    app.controller("myCtrl", function($scope, $http) {
+        
+        var queryString = window.location.search;
+        var urlParams = new URLSearchParams(queryString);
+        var id = urlParams.get('id')
+        $scope.enquiryForm;
+        $scope.enquiry = {}
+        $http.get("/api/getAdvNewsLetterHtmlTemplate/"+id).then(function (response) {
+            $scope.template = response.data;
+        });
+
+        $scope.submitEnquiry = function()
+        {
+            $scope.enquiry['adv_id'] =  parseInt(id);
+            var config = {
+                       
+                    };
+
+
+                    $http.post('/api/saveFeedbacks/', $scope.enquiry , config)
+                    .then(
+                        function(response){
+                            // success callback
+                            $scope.enquiry = {};
+                            $scope.responseData = response.data;
+
+                            setTimeout(myStopFunction, 5000);
+
+                                function myStopFunction() {
+                                    
+                                    location.reload();
+                                }
+
+                        });
+        }
+
+    });
+    </script>
+</html>
