@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Promotions</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-sanitize.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+
+<div class="container-fluid" ng-bind-html="template.data">
+  
+</div>
+
+
+</body>
+
+
+<script>
+    var app = angular.module("myApp", ['ngSanitize']);
+    app.controller("myCtrl", function($scope, $http) {
+        
+        var queryString = window.location.search;
+        var urlParams = new URLSearchParams(queryString);
+        var id = urlParams.get('id')
+        console.log(id);
+
+        $http.get("/api/getAdvNewsLetterHtmlTemplate/"+id).then(function (response) {
+            $scope.template = response.data;
+            console.log($scope.template)
+        });
+
+    });
+    </script>
+</html>
