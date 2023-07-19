@@ -34,7 +34,7 @@ app.use(cors());
 //   console.log(cryptconf.encrypt('321'))
 //   console.log(cryptconf.encrypt('3brluxzsuzxgwxtig21'))
   
-//   console.log(cryptconf.decrypt(env.senderpass))
+//    console.log(cryptconf.decrypt('22ef3ea766e9873304d6e1fc50a00636'))
 
 
 app.use(express.static(path.join(__dirname,'app')));
