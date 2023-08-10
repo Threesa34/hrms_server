@@ -73,26 +73,26 @@ const ca = fs.readFileSync(path.resolve('../../etc/letsencrypt/live/threesainfow
 const key = fs.readFileSync(path.resolve('../../etc/letsencrypt/live/threesainfoway.net/privkey.pem'));
  */
 
-// const ca = fs.readFileSync(path.resolve('../Threesa_website/STAR.threesainfoway.net_cert-2/STAR.threesainfoway.net.ca-bundle'));
-//   const cert = fs.readFileSync(path.resolve('../Threesa_website/STAR.threesainfoway.net_cert-2/STAR.threesainfoway.net.crt'));
-//    const key = fs.readFileSync(path.resolve('../Threesa_website/threesainfoway.net-1/private.key'));
+ const ca = fs.readFileSync(path.resolve('../Threesa_website/STAR.threesainfoway.net_cert-2/STAR.threesainfoway.net.ca-bundle'));
+   const cert = fs.readFileSync(path.resolve('../Threesa_website/STAR.threesainfoway.net_cert-2/STAR.threesainfoway.net.crt'));
+   const key = fs.readFileSync(path.resolve('../Threesa_website/threesainfoway.net-1/private.key'));
  
 	
 
-/* let httpsOptions = {
+ let httpsOptions = {
     cert: cert, // fs.readFileSync('./ssl/example.crt');
     ca: ca, // fs.readFileSync('./ssl/example.ca-bundle');
     key: key // fs.readFileSync('./ssl/example.key');
  };
-  */
+  
 
  //let httpsOptions = {};
 
 
-/*  var sec_server = https.createServer(httpsOptions, app).listen(8896, function(){
+  var sec_server = https.createServer(httpsOptions, app).listen(8896, function(){
 	
 	console.log('server start on port: ' + sec_server.address().port);
- }); */
+ }); 
 
  let io = require('socket.io')(server);
 	require('./lib/config/socket.Ctrl')(io);
