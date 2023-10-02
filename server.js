@@ -73,11 +73,14 @@ const ca = fs.readFileSync(path.resolve('../../etc/letsencrypt/live/threesainfow
 const key = fs.readFileSync(path.resolve('../../etc/letsencrypt/live/threesainfoway.net/privkey.pem'));
  */
 
- const ca = fs.readFileSync(path.resolve('../Threesa_website/STAR.threesainfoway.net_cert-2/STAR.threesainfoway.net.ca-bundle'));
+ /*const ca = fs.readFileSync(path.resolve('../Threesa_website/STAR.threesainfoway.net_cert-2/STAR.threesainfoway.net.ca-bundle'));
    const cert = fs.readFileSync(path.resolve('../Threesa_website/STAR.threesainfoway.net_cert-2/STAR.threesainfoway.net.crt'));
-   const key = fs.readFileSync(path.resolve('../Threesa_website/threesainfoway.net-1/private.key'));
+   const key = fs.readFileSync(path.resolve('../Threesa_website/threesainfoway.net-1/private.key'));*/
  
-	
+
+   const cert = fs.readFileSync(path.resolve('../../etc/letsencrypt/live/threesainfoway.net/cert.pem'));
+   const ca = fs.readFileSync(path.resolve('../../etc/letsencrypt/live/threesainfoway.net/chain.pem'));
+   const key = fs.readFileSync(path.resolve('../../etc/letsencrypt/live/threesainfoway.net/privkey.pem')); 
 
  let httpsOptions = {
     cert: cert, // fs.readFileSync('./ssl/example.crt');
